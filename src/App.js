@@ -11,7 +11,21 @@ function Map(){
     <GoogleMap 
       defaultZoom={13} 
       defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
-      defaultOptions={{styles: mapStyle}}>
+      defaultOptions={{
+        styles: mapStyle, 
+        disableDefaultUI: true, 
+        zoomControl: true, 
+        zoomControlOptions: {
+          style: window.google.maps.ZoomControlStyle.SMALL,
+        },
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+          style: window.google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+          position: window.google.maps.ControlPosition.TOP_RIGHT
+          //mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain']
+        }
+      }}
+    >
       {restaurantData.features.map(restaurant => (
         <Marker 
           key={restaurant.restaurantID} 
@@ -47,7 +61,7 @@ const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 export default function App() {
   return (
-    <div style={{width: '100vw', height: '100vh'}}>
+    <div style={{width: '74vw', height: '100vh'}}>
       <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs`}
         loadingElement={<div style={{ height: "100%" }} />}
         containerElement={<div style={{ height: "100%" }} />}
