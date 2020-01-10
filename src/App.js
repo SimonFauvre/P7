@@ -3,6 +3,7 @@ import './App.css';
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
 import * as restaurantData from "./data/restaurant.json";
 import mapStyle from "./mapStyle.js";
+import List from "./List.js";
 
 function Map(){
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -22,7 +23,6 @@ function Map(){
         mapTypeControlOptions: {
           style: window.google.maps.MapTypeControlStyle.DROPDOWN_MENU,
           position: window.google.maps.ControlPosition.TOP_RIGHT
-          //mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain']
         }
       }}
     >
@@ -48,9 +48,9 @@ function Map(){
           }}
           options={{pixelOffset: new window.google.maps.Size(0, -30)}}
         >
-            <div>
-              <h2 style={{fontSize: 14}}>{selectedRestaurant.restaurantName}</h2>
-            </div>
+          <div>
+            <h2 style={{fontSize: 14}}>{selectedRestaurant.restaurantName}</h2>
+          </div>
         </InfoWindow>
       )}
     </GoogleMap>
@@ -61,12 +61,17 @@ const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 export default function App() {
   return (
-    <div style={{width: '74vw', height: '100vh'}}>
-      <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs`}
-        loadingElement={<div style={{ height: "100%" }} />}
-        containerElement={<div style={{ height: "100%" }} />}
-        mapElement={<div style={{ height: "100%" }} />}
-      />
+    <div>
+      <div style={{width: '74vw', height: '100vh'}}>
+        <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs`}
+          loadingElement={<div style={{ height: "100%" }} />}
+          containerElement={<div style={{ height: "100%" }} />}
+          mapElement={<div style={{ height: "100%" }} />}
+        />
+      </div>
+      <div style={{width: '26vw', height: '100vh'}}>
+        <List />
+      </div>
     </div>
   );
 }
