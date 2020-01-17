@@ -29,10 +29,6 @@
                 {
                     "stars":5,
                     "comment":"Une minuscule pizzeria délicieuse cachée juste à côté du Sacré choeur !"
-                },
-                {
-                    "stars":3,
-                    "comment":"J'ai trouvé ça correct, sans plus"
                 }
             ]
         },
@@ -50,6 +46,10 @@
                 },
                 {
                     "stars":4,
+                    "comment":"Bonne adresse, aspect industriel, serveurs sympathiques et efficaces. Grande carte et plat correct. Lieu convivial."
+                },
+                {
+                    "stars":2,
                     "comment":"Bonne adresse, aspect industriel, serveurs sympathiques et efficaces. Grande carte et plat correct. Lieu convivial."
                 }
             ]

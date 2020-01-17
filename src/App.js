@@ -4,6 +4,7 @@ import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-
 import * as restaurantData from "./data/restaurant.json";
 import mapStyle from "./mapStyle.js";
 import List from "./List.js";
+import Titre from "./Titre.js";
 
 function Map(){
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
@@ -61,16 +62,19 @@ const WrappedMap = withScriptjs(withGoogleMap(Map));
 
 export default function App() {
   return (
-    <div>
-      <div style={{width: '74vw', height: '100vh'}}>
+    <div className="appCSS">
+      <div style={{width: '65vw', height: '100vh'}}>
         <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs`}
           loadingElement={<div style={{ height: "100%" }} />}
           containerElement={<div style={{ height: "100%" }} />}
           mapElement={<div style={{ height: "100%" }} />}
         />
       </div>
-      <div style={{width: '26vw', height: '100vh'}}>
-        <List />
+      <div style={{width: '35vw', height: '100vh'}}>
+        <div className="general">
+          <Titre/>
+          <List/>
+        </div>
       </div>
     </div>
   );
