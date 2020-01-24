@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./List.css";
 import * as restaurantData from "./data/restaurant.json";
+import Titre from "./Titre";
 
 const List = props => {
     
@@ -12,7 +13,7 @@ const List = props => {
     }
 
     const clickRestaurant = (restaurant) => {
-        console.log(document.getElementsByClassName("list")[0].style.visibility = "hidden");
+
     }
 
     return(restaurantData ?

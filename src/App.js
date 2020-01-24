@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
 import * as restaurantData from "./data/restaurant.json";
@@ -16,7 +16,7 @@ function Map(){
     <GoogleMap 
       defaultZoom={13} 
       defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
-      center={{ lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) }}
+      center={{lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)}}
       defaultOptions={{
         styles: mapStyle, 
         disableDefaultUI: true, 
@@ -30,7 +30,7 @@ function Map(){
           position: window.google.maps.ControlPosition.TOP_RIGHT
         }
       }}>
-      <Marker 
+      <Marker
         position={{lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)}}
         onClick={() => {
           setSelectedLocation(location);

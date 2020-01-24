@@ -1,22 +1,15 @@
 .general{
-    height: 97%;
+    height: 95.8%;
 }
 
-.titreSite{
-    margin-left: 4%;
-    margin-top: 4%;
-    font-size: 30px;
-    color: #f5f8b3;
-}
-
-ul{
-    margin-top: 4%;
+.list{
+    margin-top: 0;
     margin-left: 4%;
     margin-right: 4%;
     margin-bottom: 0;
     padding: 0;
     overflow: scroll;
-    height: 93%;
+    height: 94%;
 }
 
 li{
