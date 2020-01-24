@@ -11,12 +11,16 @@ const List = props => {
         return totalStars.toFixed(1);
     }
 
+    const clickRestaurant = (restaurant) => {
+        console.log(document.getElementsByClassName("list")[0].style.visibility = "hidden");
+    }
+
     return(restaurantData ?
-            <ul>
+            <ul className="list">
                 {restaurantData.features.map(restaurant => (
-                    <li key={restaurant.restaurantID} onClick={() => {
-                        console.log("Selection du restaurant : " + restaurant.restaurantName);
-                    }}>
+                    <li key={restaurant.restaurantID} className="itemList" onClick= {() => {
+                        clickRestaurant(restaurant);
+                      }}>
                         <img className="imgRestaurant" src={restaurant.img} alt="Le restaurant"></img>
                         <div style={{marginTop: "auto", marginBottom: "auto"}}>
                             <h2>{restaurant.restaurantName}</h2>

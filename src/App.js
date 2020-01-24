@@ -5,14 +5,18 @@ import * as restaurantData from "./data/restaurant.json";
 import mapStyle from "./mapStyle.js";
 import List from "./List.js";
 import Titre from "./Titre.js";
+import useGeolocation from "react-hook-geolocation";
 
 function Map(){
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const location = useGeolocation();
 
   return (
     <GoogleMap 
       defaultZoom={13} 
       defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
+      center={{ lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) }}
       defaultOptions={{
         styles: mapStyle, 
         disableDefaultUI: true, 
@@ -25,8 +29,30 @@ function Map(){
           style: window.google.maps.MapTypeControlStyle.DROPDOWN_MENU,
           position: window.google.maps.ControlPosition.TOP_RIGHT
         }
-      }}
-    >
+      }}>
+      <Marker 
+        position={{lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)}}
+        onClick={() => {
+          setSelectedLocation(location);
+        }}
+        icon={{
+          url: "/here.png",
+          scaledSize: new window.google.maps.Size(20, 20)
+        }}/>
+
+      {selectedLocation && (
+      <InfoWindow 
+        position={{lat: parseFloat(selectedLocation.latitude), lng: parseFloat(selectedLocation.longitude)}}
+        options={{pixelOffset: new window.google.maps.Size(0, -20)}}
+        onCloseClick={() => {
+          setSelectedLocation(null);
+        }}>
+        <div>
+          <h2 style={{fontSize: 14}}>Vous êtes ici</h2>
+        </div>
+      </InfoWindow>
+      )}
+
       {restaurantData.features.map(restaurant => (
         <Marker 
           key={restaurant.restaurantID} 
@@ -37,8 +63,7 @@ function Map(){
           icon={{
             url: "/logo_resto.png",
             scaledSize: new window.google.maps.Size(30, 30)
-          }}
-        />
+          }}/>
       ))}
 
       {selectedRestaurant && (
@@ -47,13 +72,13 @@ function Map(){
           onCloseClick={() => {
             setSelectedRestaurant(null);
           }}
-          options={{pixelOffset: new window.google.maps.Size(0, -30)}}
-        >
+          options={{pixelOffset: new window.google.maps.Size(0, -30)}}>
           <div>
             <h2 style={{fontSize: 14}}>{selectedRestaurant.restaurantName}</h2>
           </div>
         </InfoWindow>
       )}
+
     </GoogleMap>
   );
 }
