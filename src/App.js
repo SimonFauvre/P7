@@ -1,22 +1,36 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
+import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, MarkerClusterer} from 'react-google-maps';
 import * as restaurantData from "./data/restaurant.json";
 import mapStyle from "./mapStyle.js";
 import List from "./List.js";
 import Titre from "./Titre.js";
 import useGeolocation from "react-hook-geolocation";
 
-function Map(){
+const Map = props => {
+
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const location = useGeolocation();
+  let center = {lat: location.latitude, lng: location.longitude};
+
+  if (selectedRestaurant !== null) {
+    center = {lat: selectedRestaurant.lat, lng: selectedRestaurant.long};
+  } else if (selectedLocation !== null) {
+    center = {lat: selectedLocation.latitude, lng: selectedLocation.longitude};
+  } else if (selectedRestaurant === null || selectedLocation === null){
+    // Modifier pour ne plus centrer la carte sur un point précis
+  }
+
+  const clickRestaurant = (restaurant) => {
+    console.log(restaurant);
+  }
 
   return (
     <GoogleMap 
       defaultZoom={13} 
       defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
-      center={{lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)}}
+      center={center}
       defaultOptions={{
         styles: mapStyle, 
         disableDefaultUI: true, 
@@ -34,6 +48,7 @@ function Map(){
         position={{lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)}}
         onClick={() => {
           setSelectedLocation(location);
+          setSelectedRestaurant(null);
         }}
         icon={{
           url: "/here.png",
@@ -59,6 +74,8 @@ function Map(){
           position={{lat: restaurant.lat, lng: restaurant.long}}
           onClick={() => {
             setSelectedRestaurant(restaurant);
+            setSelectedLocation(null);
+            clickRestaurant(restaurant);
           }}
           icon={{
             url: "/logo_resto.png",

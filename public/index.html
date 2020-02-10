@@ -16,5 +16,30 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"><!-- REACT --></div>
+    <div id="details"> <!--CARD-DETAILS-->
+      <div style="background-color: rgb(61, 61, 61); color: whitesmoke; margin: 0; margin-left: 4%; margin-right: 4%; padding: 10px; border-radius: 10px; cursor: pointer; margin-bottom: 10px; list-style: none;">
+        <div style="display: flex; flex-direction: row;">
+          <img className="imgRestaurant" src="logo_resto.png" alt="" style="border: 2px solid whitesmoke; height: 80px; width: 80px; border-radius: 50px; margin-right: 10px;"></img>
+          <div style="margin-top: auto; margin-bottom: auto;">
+            <h2 style="font-size: 30px;">Nom du restaurant</h2>
+            <div className="moyenneAvis">
+                <span style="font-weight: bold;">5</span>
+                <img src="etoile.png" className="imgAvis" alt="Etoile des avis" style="height: 15px; width: 15px; margin-bottom: 4px; vertical-align: middle; margin-left: 5px;"></img>
+            </div>
+            <div className="adresse">8bis, rue Hugues Guérin</div>
+          </div>
+        </div>
+        <div className="note" style="display: flex; flex-direction: row; margin-top: 40px; margin-left: 15px;">
+          <span style="font-size: 30px;">4</span>
+          <img src="etoile.png" className="imgAvis" alt="Etoile des avis" style="height: 30px; width: 30px; vertical-align: middle; margin-left: 5px;"></img>
+          <div className="avis" style="margin-left: 25px; margin-top: 10px;">Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande.</div>
+        </div>
+        <div className="note" style="display: flex; flex-direction: row; margin-top: 40px; margin-left: 15px;">
+          <span style="font-size: 30px;">5</span>
+          <img src="etoile.png" className="imgAvis" alt="Etoile des avis" style="height: 30px; width: 30px; vertical-align: middle; margin-left: 5px;"></img>
+          <div className="avis" style="margin-left: 25px; margin-top: 10px;">Tout simplement mon restaurant préféré !</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
