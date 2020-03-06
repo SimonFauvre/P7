@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow, MarkerClusterer} from 'react-google-maps';
+import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
 import * as restaurantData from "./data/restaurant.json";
 import mapStyle from "./mapStyle.js";
-import List from "./List.js";
-import Titre from "./Titre.js";
+import PanelRight from "./PanelRight.js";
 import useGeolocation from "react-hook-geolocation";
 
 const Map = props => {
@@ -14,13 +13,17 @@ const Map = props => {
   const location = useGeolocation();
   let center = {lat: location.latitude, lng: location.longitude};
 
-  if (selectedRestaurant !== null) {
-    center = {lat: selectedRestaurant.lat, lng: selectedRestaurant.long};
-  } else if (selectedLocation !== null) {
-    center = {lat: selectedLocation.latitude, lng: selectedLocation.longitude};
-  } else if (selectedRestaurant === null || selectedLocation === null){
-    // Modifier pour ne plus centrer la carte sur un point précis
-  }
+  useEffect(() => {
+
+  });
+
+  // if (selectedRestaurant !== null) {
+  //   center = {lat: selectedRestaurant.lat, lng: selectedRestaurant.long};
+  // } else if (selectedLocation !== null) {
+  //   center = {lat: selectedLocation.latitude, lng: selectedLocation.longitude};
+  // } else if (selectedRestaurant === null || selectedLocation === null){
+  //   // Modifier pour ne plus centrer la carte sur un point précis
+  // }
 
   const clickRestaurant = (restaurant) => {
     console.log(restaurant);
@@ -88,6 +91,7 @@ const Map = props => {
           position={{lat: selectedRestaurant.lat, lng: selectedRestaurant.long}}
           onCloseClick={() => {
             setSelectedRestaurant(null);
+            setSelectedLocation(null);
           }}
           options={{pixelOffset: new window.google.maps.Size(0, -30)}}>
           <div>
@@ -102,7 +106,7 @@ const Map = props => {
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));
 
-export default function App() {
+export default function App() {  
   return (
     <div className="appCSS">
       <div style={{width: '65vw', height: '100vh'}}>
@@ -114,8 +118,7 @@ export default function App() {
       </div>
       <div style={{width: '35vw', height: '100vh'}}>
         <div className="general">
-          <Titre/>
-          <List/>
+          <PanelRight/>
         </div>
       </div>
     </div>

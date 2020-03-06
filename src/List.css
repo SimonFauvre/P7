@@ -1,7 +1,3 @@
-.general{
-    height: 95.8%;
-}
-
 .list{
     margin-top: 0;
     margin-left: 4%;
@@ -9,7 +5,7 @@
     margin-bottom: 0;
     padding: 0;
     overflow: scroll;
-    height: 94%;
+    height: 688px; /* A Corriger pour tous types d'écran*/
 }
 
 li{
@@ -36,6 +32,10 @@ h2{
     margin-bottom: 5px;
 }
 
+.moyenneAvisText{
+    vertical-align: middle;
+}
+
 .adresse{
     font-style: italic;
     font-size: 14px;
@@ -50,10 +50,10 @@ h2{
     margin-right: 10px;
 }
 
-.imgAvis{
+.etoileAvis{
     height: 15px;
     width: 15px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     vertical-align: middle;
     margin-left: 5px;
 }

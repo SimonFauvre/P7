@@ -1,0 +1,4 @@
+.cardRestaurant{
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,47 @@
+.sectionTitre{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6%;
+    color: #f5f8b3;
+}
+
+.titreSite{
+    margin-left: 4%;
+    margin-top: 6%;
+    margin-bottom: 1%;
+    font-size: 30px;
+    width: auto;
+}
+
+.titre{
+    font-family: system-ui;
+    font-weight: bold;
+    text-decoration: none;
+    color: #f5f8b3;
+    width: auto;
+}
+
+.filtreAvis{
+    font-size: 14px;
+    width: 300px;
+    margin-top: 7%;
+    margin-right: 5%;
+    text-align: right;
+}
+
+#inputMin, #inputMax{
+    margin-top: 1px;
+    margin-bottom: 0;
+    border: 1px solid;
+    height: 25px;
+}
+
+#inputMin{
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+#inputMax{
+    margin-left: 5px;
+    margin-right: 5px;
+}

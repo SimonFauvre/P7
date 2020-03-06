@@ -1,0 +1,126 @@
+.details{
+
+}
+
+.detailsRestaurant{
+    background-color: rgb(61, 61, 61); 
+    color: whitesmoke; 
+    margin: 0% 4% 6% 0%;
+    padding: 0px; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    list-style: none;
+}
+
+.detailsRestaurant{
+    display: flex; 
+    flex-direction: row;
+}
+
+.imgRestaurantDetails{
+    border: 2px solid whitesmoke; 
+    height: 80px; 
+    width: 80px; 
+    border-radius: 50px; 
+    margin-right: 10px;
+}
+
+.infoRestaurantDetails{
+    margin-top: auto; 
+    margin-bottom: auto;
+}
+
+.nameRestaurantDetails{
+    font-size: 30px;
+}
+
+.etoileAvisDetails{
+    height: 15px; 
+    width: 15px; 
+    margin-bottom: 4px; 
+    vertical-align: middle; 
+    margin-left: 5px;
+}
+
+.note{
+    display: flex; 
+    flex-direction: row; 
+    margin-top: 20px; 
+    margin-bottom: 15px;
+    margin-left: 15px;
+    vertical-align: middle;
+}
+
+.note span{
+    font-size: 30px;
+    vertical-align: middle;
+    width: 20px;
+    text-align: center;
+}
+
+.imgAvisDetails{
+    height: 30px; 
+    width: 30px; 
+    vertical-align: middle; 
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.avis{
+    margin-left: 25px; 
+    margin-right: 15px;
+    margin-top: 8px;
+    vertical-align: middle;
+}
+
+.newComment{
+    display: flex;
+    flex-direction: row;
+}
+
+input[type=text]{
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    height: 30px;
+    width: -webkit-fill-available;
+    border: 0;
+    color: grey;
+    background-color: rgb(29, 29, 29);
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+input[type=number]{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 0px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    height: 30px;
+    width: 23px;
+    border: 0;
+    color: #f5f8b3;
+    background-color: rgb(29, 29, 29);
+    padding-left: 15px;
+    font-size: 14px;
+}
+
+input[type=submit]{
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    height: 32px;
+    width: 35px;
+    border: 0;
+    color: #f5f8b3;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgb(29, 29, 29);
+    font-size: 16px;
+    /*font-weight: bold;*/
+}
