@@ -1,21 +1,24 @@
 import React, {useState} from "react";
 import "./Card.css";
 import CardDetails from "./Card_Details";
-import * as restaurantData from "./data/restaurant.json";
+//import * as restaurantData from "./data/restaurant.json";
 
 const Card = props => {
 
-    const [display, setDisplay] = useState(props.display);
-    const [displayDetails, setDisplayDetails] = useState(props.displayDetails);
+    //const [displayDetails, setDisplayDetails] = useState(props.displayDetails);
     const [restaurant, setRestaurant] = useState(props.restaurant);
-    const [moyenne, setMoyenne] = useState(props.moyenne);
 
-
+    const displayDetails = () => {
+        restaurant.displayDetails = !restaurant.displayDetails;
+        console.log(restaurant.displayDetails);
+    }
+    
     const displayRestaurant = () => {
-        if(display){
+        if(restaurant.display){
             return(
-            <li key={restaurant.restaurantID} className="itemList" onClick={() => setDisplayDetails(!displayDetails)}>
-                {displayDetails ? 
+            <li key={restaurant.restaurantID} className="itemList" onClick={() => /*setDisplayDetails(!displayDetails)*/ displayDetails(restaurant.displayDetails)}>
+                {/*displayDetails*/
+                restaurant.displayDetails ?
                 <CardDetails restaurant={restaurant} moyenneAvis={restaurant.average} avis={restaurant.ratings}/> : 
                 <div className="cardRestaurant">
                     <img className="imgRestaurant" src={restaurant.img} alt="Le restaurant"></img>

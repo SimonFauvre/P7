@@ -45,3 +45,27 @@
     margin-left: 5px;
     margin-right: 5px;
 }
+
+select{
+    -webkit-appearance: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid;
+    border-color: #f5f8b3;
+    background-color: rgb(29, 29, 29);
+    color: #f5f8b3;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#select-min{
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+#select-max{
+    margin-left: 5px;
+    margin-right: 5px;
+}
