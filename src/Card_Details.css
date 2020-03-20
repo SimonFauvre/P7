@@ -60,7 +60,7 @@
 
 .imgAvisDetails{
     height: 30px; 
-    width: 30px; 
+    width: 30px!important; 
     vertical-align: middle; 
     margin-left: 5px;
     margin-top: 2px;

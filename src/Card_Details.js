@@ -40,7 +40,7 @@ const CardDetails = props => {
             ))}
             <div className="newComment">
                 <input type="number" min="1" max="5" step="1" value="1" size="6"></input>
-                <input type="text" id="commentaire" name="Commentaire" value={avis} onChange={(e) => setAvis(e.target.value)}></input>
+                <input type="text" className="commentaire" name="Commentaire" value={avis} onChange={(e) => setAvis(e.target.value)}></input>
                 <input type="submit" value="→" onClick={() => addCommentToJson(avis, restaurant)}></input>
             </div>
         </div>

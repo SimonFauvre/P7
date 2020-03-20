@@ -90,3 +90,8 @@ button.gm-control-active{
   width: 9px!important;
   color: black;
 }
+
+.gm-style-iw.gm-style-iw-c{
+  padding-left: 15px;
+  padding-top: 15px;
+}
