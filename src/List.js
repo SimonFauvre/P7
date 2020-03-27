@@ -1,19 +1,17 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import "./List.css";
-//import * as restaurantData from "./data/restaurant.json";
 import Card from "./Card";
+import RestaurantContext from "./RestaurantContext";
 
 const List = props => {
 
-    const [valueMin, setValueMin] = useState(parseInt(props.valueMin));
-    const [valueMax, setValueMax] = useState(parseInt(props.valueMax));
-    const [restaurantDisplay, setRestaurantDisplay] = useState(props.restaurantDisplay);
+    const {restaurants, updateRestaurants} = useContext(RestaurantContext);
 
-    return(props.restaurantDisplay ?
+    return(restaurants ?
         <ul className="list">
-            {props.restaurantDisplay.map(restaurant => (
+            {restaurants.map(restaurant => (
                 restaurant.display = true,
-                <Card key={restaurant.restaurantID} /*displayDetails={false}*/ restaurant={restaurant}/>
+                <Card key={restaurant.restaurantID} restaurant={restaurant}/>
             ))}
         </ul>
     : <div>Chargement des restaurants...</div>);

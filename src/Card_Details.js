@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-//import "./List.css";
 import "./Card_Details.css";
 import * as restaurantData from "./data/restaurant.json";
 

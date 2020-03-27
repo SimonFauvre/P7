@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./Card.css";
 import CardDetails from "./Card_Details";
 
@@ -6,6 +6,11 @@ const Card = props => {
 
     const [restaurant, setRestaurant] = useState(props.restaurant);
     const [displayDetails, setDisplayDetails] = useState(restaurant.displayDetails);
+
+    useEffect(() => {
+        setDisplayDetails(displayDetails);
+        console.log(displayDetails);
+    },[displayDetails])
     
     const displayRestaurant = () => {
         if(restaurant.display){

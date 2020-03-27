@@ -2,7 +2,7 @@
     "features": [
         {
             "restaurantID": 1,
-            "restaurantName":"Restaurant Air du Pays",
+            "restaurantName":"Air du Pays",
             "address":"14 Rue de Marseille, 69007 Lyon",
             "lat":45.753619,
             "long":4.841378,
@@ -96,7 +96,7 @@
             "address":"138 Avenue Félix Faure, 69003 Lyon",
             "lat":45.75414110000001,
             "long":4.864559999999983,
-            "img": "https://lh5.googleusercontent.com/p/AF1QipOVzK7CwsC0F2fmor7ovo5OFtrDt8fUwNHA_8UR=w408-h306-k-no",
+            "img": "https://lh5.googleusercontent.com/p/AF1QipP9LrMo7G0DFKjC21E27bT4idgb96zQIYoTlcxg=w408-h272-k-no",
             "ratings":[
                 {
                     "stars":2,
@@ -110,7 +110,7 @@
         },
         {
             "restaurantID": 7,
-            "restaurantName":"Restaurant La Colline d'Or",
+            "restaurantName":"La Colline d'Or",
             "address":"30 Rue du Repos, 69007 Lyon",
             "lat":45.7458783,
             "long":4.850144499999942,
@@ -164,7 +164,7 @@
         },
         {
             "restaurantID": 10,
-            "restaurantName":"L'Inédit Restaurant Bar Tapas",
+            "restaurantName":"L'Inédit",
             "address":"112 Boulevard des Belges, 69006 Lyon",
             "lat":45.768417,
             "long":4.858348400000068,
@@ -200,7 +200,7 @@
         },
         {
             "restaurantID": 12,
-            "restaurantName":"Restaurant La Terrasse De Rochecardon",
+            "restaurantName":"La Terrasse De Rochecardon",
             "address":"69 Rue de St Cyr, 69009 Lyon",
             "lat":45.78783809999999,
             "long":4.808508999999958,
@@ -272,7 +272,7 @@
         },
         {
             "restaurantID": 16,
-            "restaurantName":"Ninkasi GERLAND",
+            "restaurantName":"Ninkasi Gerland",
             "address":"267 Rue Marcel Mérieux, 69007 Lyon",
             "lat":45.728009,
             "long":4.830593599999929,
@@ -290,7 +290,7 @@
         },
         {
             "restaurantID": 17,
-            "restaurantName":"Restaurant Fenet",
+            "restaurantName":"Fenet",
             "address":"128 Chemin de Montray, 69110 Sainte-Foy-lès-Lyon",
             "lat":45.729181,
             "long":4.79013800000007,
@@ -348,7 +348,7 @@
             "address":"28 Avenue Maurice Jarrosson, 69110 Sainte-Foy-lès-Lyon",
             "lat":45.7420797,
             "long":4.797205800000029,
-            "img": "https://lh5.googleusercontent.com/p/AF1QipPxWnA4rN52TFyzbbjUwDhqJqadxF2aKoZfotsT=w426-h240-k-no",
+            "img": "https://lh5.googleusercontent.com/p/AF1QipOA_ffoxKxgRDEs7tiJCuWgtVqBn2Ctmkz5QDfo=w408-h408-k-no",
             "ratings":[
                 {
                     "stars":1,

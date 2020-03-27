@@ -1,75 +1,69 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import "./PanelRight.css";
 import * as restaurantData from "./data/restaurant.json";
 import List from "./List";
+import App from "./App";
+import RestaurantContext from "./RestaurantContext";
 
 const PanelRight = props => {
-    const [valueMin, setValueMin] = useState(["1", "2", "3", "4", "5"]);
-    const [valueMax, setValueMax] = useState(["1", "2", "3", "4", "5"]);
-    const [valMin, setValMin] = useState(1);
-    const [valMax, setValMax] = useState(5);
 
-    const AddMin = valueMin.map(AddMin => AddMin);
-    const AddMax = valueMax.map(AddMax => AddMax);
+    const {restaurants, updateRestaurants} = useContext(RestaurantContext);
 
-    const moyenneAvis = (restaurant) => {
-        var restaurantSelect = restaurantData.features.filter(feature => feature.restaurantID === restaurant.restaurantID);
-        const totalStars = restaurant.ratings.map(rating => rating.stars).reduce((previousValue, currentValue, index, array) => {
-            var value = index + 1 === array.length ? (previousValue + currentValue) / array.length : previousValue + currentValue;
-            restaurantSelect[0].average = parseFloat(value.toFixed(1));
-            return value;
-        });
-        restaurantSelect[0].average = parseFloat(totalStars.toFixed(1));
-    }
-
-    const defineDisplay = (restaurant) => {
-        var restaurantSelect = restaurantData.features.filter(feature => feature.restaurantID === restaurant.restaurantID);
-        restaurantSelect[0].display = false;
-    }
-
-    const defineDisplayDetails = (restaurant) => {
-        var restaurantSelect = restaurantData.features.filter(feature => feature.restaurantID === restaurant.restaurantID);
-        restaurantSelect[0].displayDetails = false;
-    }
-
-    {restaurantData.features.map(restaurant => (
-        moyenneAvis(restaurant),
-        defineDisplay(restaurant),
-        defineDisplayDetails(restaurant)
-    ))}
-    
-    var restaurantDisplay = restaurantData.features;
+    //const [restaurants, setRestaurants] = useState(props.restaurants);
+    //const [restaurants, setRestaurants] = useState([...restaurantData.default.features]);
+    const [noteMin, setNoteMin] = useState(1);
+    const [noteMax, setNoteMax] = useState(5);
 
     const handleMinChange = (e) => {
-        console.log("valueMin[e.target.value] : ", valueMin[e.target.value]);
-        setValMin(valueMin[e.target.value]);
+        setNoteMin(parseInt(e.target.value));
     }
+    useEffect(() => {
+      setNoteMin(noteMin);
+      //console.log("valMin apres", noteMin);
+      filterDatas();
+    },[noteMin])
 
     const handleMaxChange = (e) => {
-        console.log("valueMax[e.target.value] : ", valueMax[e.target.value]);
-        setValMax(valueMax[e.target.value]);
+        setNoteMax(parseInt(e.target.value));
     }
+    useEffect(() => {
+      setNoteMax(noteMax);
+      //console.log("valMax apres", noteMax);
+      filterDatas();
+    },[noteMax])
 
     const filterDatas = () => {
-        return restaurantData.features.filter(feature => feature.average >= valMin && feature.average <= valMax);
+        updateRestaurants(restaurantData.default.features.filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));
     }
+    useEffect(() => {
+        updateRestaurants(restaurants);
+        //console.log("restaurant après : ", restaurants);
+    },[restaurants])
 
     return (
         <div>
             <div className="sectionTitre">
                 <div className="titreSite"><a href="" className="titre">Restaurants</a></div>
                 <div className="filtreAvis">
-                    <select id="select-min" onChange={e => handleMinChange(e)}>
-                        {AddMin.map((number, key) => <option key={key} value={key}>{number}</option>)}
+                    <select id="select-min" value={noteMin} onChange={e => handleMinChange(e)}>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
                     </select>
                     <span>à</span>
-                    <select id="select-max" onChange={e => handleMaxChange(e)}>
-                        {AddMax.map((number, key) => <option key={key} value={key} selected="5">{number}</option>)}
+                    <select id="select-max" value={noteMax} onChange={e => handleMaxChange(e)}>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
                     </select>
                     <span>étoiles</span>
                 </div>
             </div>
-            <List valueMin={valMin} valueMax={valMax} restaurantDisplay={filterDatas()}/>
+            <List valueMin={noteMin} valueMax={noteMax} /*restaurantDisplay={restaurants}*//>
         </div>
     )
 }
