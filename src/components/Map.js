@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import '../style/App.css';
 import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-google-maps';
 import mapStyle from "../style/mapStyle.js";
 import useGeolocation from "react-hook-geolocation";
+import RestaurantContext from "./RestaurantContext";
 
 const Map = props => {
 
-    const [restaurantDisplay, setRestaurantDisplay] = useState(props.restaurants);
+    const {restaurants, updateRestaurants} = useContext(RestaurantContext);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const location = useGeolocation();
@@ -22,6 +23,10 @@ const Map = props => {
   
     const clickRestaurant = (restaurant) => {
         //console.log(restaurant);
+        // console.log(restaurants);
+        // var a = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
+        // console.log(a);
+        // console.log(a.displayDetails = true);
     }
   
     return (
@@ -66,7 +71,7 @@ const Map = props => {
         </InfoWindow>
         )}
 
-        {restaurantDisplay.default.features.filter(feature => feature.display !== true).map(restaurant => (
+        {restaurants/*.filter(restaurant => restaurant.display !== false)*/.map(restaurant => (
           <Marker 
             key={restaurant.restaurantID}
             position={{lat: restaurant.lat, lng: restaurant.long}}

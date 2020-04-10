@@ -8,8 +8,6 @@ const PanelRight = props => {
 
     const {restaurants, updateRestaurants} = useContext(RestaurantContext);
 
-    //const [restaurants, setRestaurants] = useState(props.restaurants);
-    //const [restaurants, setRestaurants] = useState([...restaurantData.default.features]);
     const [noteMin, setNoteMin] = useState(1);
     const [noteMax, setNoteMax] = useState(5);
 
@@ -18,7 +16,6 @@ const PanelRight = props => {
     }
     useEffect(() => {
       setNoteMin(noteMin);
-      //console.log("valMin apres", noteMin);
       filterDatas();
     },[noteMin])
 
@@ -27,7 +24,6 @@ const PanelRight = props => {
     }
     useEffect(() => {
       setNoteMax(noteMax);
-      //console.log("valMax apres", noteMax);
       filterDatas();
     },[noteMax])
 
@@ -36,7 +32,6 @@ const PanelRight = props => {
     }
     useEffect(() => {
         updateRestaurants(restaurants);
-        //console.log("restaurant après : ", restaurants);
     },[restaurants])
 
     return (
@@ -62,7 +57,7 @@ const PanelRight = props => {
                     <span>étoiles</span>
                 </div>
             </div>
-            <List valueMin={noteMin} valueMax={noteMax} /*restaurantDisplay={restaurants}*//>
+            <List valueMin={noteMin} valueMax={noteMax}/>
         </div>
     )
 }

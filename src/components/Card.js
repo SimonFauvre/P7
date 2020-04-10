@@ -1,22 +1,26 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import "../style/Card.css";
 import CardDetails from "./Card_Details";
+import RestaurantContext from "./RestaurantContext";
 
 const Card = props => {
 
-    const [restaurant, setRestaurant] = useState(props.restaurant);
-    const [displayDetails, setDisplayDetails] = useState(restaurant.displayDetails);
+    const {restaurants, updateRestaurants} = useContext(RestaurantContext);
+    const [restaurant, setRestaurant] = useState(restaurants.filter(restau => restau.restaurantID === props.restaurantID)[0]);
 
-    useEffect(() => {
-        setDisplayDetails(displayDetails);
-        console.log(displayDetails);
-    },[displayDetails])
-    
+    const changeDisplayDetails = () => {
+        setRestaurant({...restaurant, displayDetails: !restaurant.displayDetails});
+    }
+
     const displayRestaurant = () => {
-        if(restaurant.display){
-            return(
-            <li key={restaurant.restaurantID} className="itemList" onClick={() => setDisplayDetails(!displayDetails)}>
-                {displayDetails ?
+        return(
+        <li 
+            key={restaurant.restaurantID} 
+            className="itemList" 
+            id={"restaurant-" + restaurant.restaurantID} 
+            onClick={changeDisplayDetails}>
+                {console.log("composant Card restaurant : ", restaurant),
+                restaurant.displayDetails ?
                 <CardDetails restaurant={restaurant} moyenneAvis={restaurant.average} avis={restaurant.ratings}/> : 
                 <div className="cardRestaurant">
                     <img className="imgRestaurant" src={restaurant.img} alt="Le restaurant"></img>
@@ -29,8 +33,7 @@ const Card = props => {
                         <div className="adresse">{restaurant.address}</div>
                     </div>
                 </div>}
-            </li>);
-        }
+        </li>);
     }
 
     return(

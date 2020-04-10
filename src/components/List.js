@@ -10,8 +10,7 @@ const List = props => {
     return(restaurants ?
         <ul className="list">
             {restaurants.map(restaurant => (
-                restaurant.display = true,
-                <Card key={restaurant.restaurantID} restaurant={restaurant}/>
+                <Card key={restaurant.restaurantID} restaurantID={restaurant.restaurantID}/>
             ))}
         </ul>
     : <div>Chargement des restaurants...</div>);

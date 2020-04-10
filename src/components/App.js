@@ -23,10 +23,10 @@ const App = () => {
       restaurantSelect[0].average = parseFloat(totalStars.toFixed(1));
   }
 
-  const defineDisplay = (restaurant) => {
-      var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
-      restaurantSelect[0].display = false;
-  }
+  // const defineDisplay = (restaurant) => {
+  //     var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
+  //     restaurantSelect[0].display = false;
+  // }
 
   const defineDisplayDetails = (restaurant) => {
       var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
@@ -36,7 +36,7 @@ const App = () => {
   const initRestaurant = () => {
     restaurants.map(restaurant => (
       moyenneAvis(restaurant),
-      defineDisplay(restaurant),
+      //defineDisplay(restaurant),
       defineDisplayDetails(restaurant)
     ));
   }
@@ -44,23 +44,22 @@ const App = () => {
   initRestaurant();
 
   return (
-    <div className="appCSS">
-      <div style={{width: '65vw', height: '100vh'}}>
-        <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs`}
-          loadingElement={<div style={{ height: "100%" }} />}
-          containerElement={<div style={{ height: "100%" }} />}
-          mapElement={<div style={{ height: "100%" }} />}
-          restaurants={restaurantData}
-        />
-      </div>
-      <div style={{width: '35vw', height: '100vh'}}>
-        <div className="general">
-          <RestaurantsContext.Provider value={contextValue}>
+    <RestaurantsContext.Provider value={contextValue}>
+      <div className="appCSS">
+        <div style={{width: '65vw', height: '100vh'}}>
+          <WrappedMap googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs`}
+            loadingElement={<div style={{ height: "100%" }} />}
+            containerElement={<div style={{ height: "100%" }} />}
+            mapElement={<div style={{ height: "100%" }} />}
+          />
+        </div>
+        <div style={{width: '35vw', height: '100vh'}}>
+          <div className="general">
             <PanelRight/>
-          </RestaurantsContext.Provider>
+          </div>
         </div>
       </div>
-    </div>
+    </RestaurantsContext.Provider>
   );
 }
 
