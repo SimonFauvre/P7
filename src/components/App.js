@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "../style/PanelRight.css";
 import * as restaurantData from "../data/restaurant.json";
 import WrappedMap from "./Map";
@@ -13,6 +13,10 @@ const App = () => {
     updateRestaurants: setRestaurants
   }
 
+  useEffect(() => {
+    setRestaurants(restaurants);
+  },[restaurants])
+
   const moyenneAvis = (restaurant) => {
       var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
       const totalStars = restaurant.ratings.map(rating => rating.stars).reduce((previousValue, currentValue, index, array) => {
@@ -23,11 +27,6 @@ const App = () => {
       restaurantSelect[0].average = parseFloat(totalStars.toFixed(1));
   }
 
-  // const defineDisplay = (restaurant) => {
-  //     var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
-  //     restaurantSelect[0].display = false;
-  // }
-
   const defineDisplayDetails = (restaurant) => {
       var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
       restaurantSelect[0].displayDetails = false;
@@ -36,7 +35,6 @@ const App = () => {
   const initRestaurant = () => {
     restaurants.map(restaurant => (
       moyenneAvis(restaurant),
-      //defineDisplay(restaurant),
       defineDisplayDetails(restaurant)
     ));
   }

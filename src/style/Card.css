@@ -2,3 +2,10 @@
     display: flex;
     flex-direction: row;
 }
+
+.nbRatings{
+    color: grey;
+    font-size: 12px;
+    padding-top: 10px;
+    margin-left: 5px;
+}

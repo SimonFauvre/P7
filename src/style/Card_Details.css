@@ -1,7 +1,3 @@
-.details{
-
-}
-
 .detailsRestaurant{
     background-color: rgb(61, 61, 61); 
     color: whitesmoke; 
@@ -76,6 +72,22 @@
 .newComment{
     display: flex;
     flex-direction: row;
+}
+
+.selectNote{
+    margin-left: 15px;
+    margin-top: 10px;
+    -webkit-appearance: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: none;
+    border-color: #f5f8b3;
+    background-color: rgb(29, 29, 29);
+    color: #f5f8b3;
+    font-size: 14px;
+    height: 32px;
 }
 
 input[type=text]{

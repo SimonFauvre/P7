@@ -53,7 +53,7 @@ h2{
 .etoileAvis{
     height: 15px;
     width: 15px;
-    margin-bottom: 1px;
+    margin-bottom: -1px;
     vertical-align: middle;
     margin-left: 5px;
 }

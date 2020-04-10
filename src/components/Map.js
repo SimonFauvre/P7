@@ -71,11 +71,19 @@ const Map = props => {
         </InfoWindow>
         )}
 
-        {restaurants/*.filter(restaurant => restaurant.display !== false)*/.map(restaurant => (
+        {restaurants.map(restaurant => (
           <Marker 
             key={restaurant.restaurantID}
             position={{lat: restaurant.lat, lng: restaurant.long}}
             onClick={() => {
+              // console.log(restaurants);
+              // let tmpRestaurants = restaurants;
+              // tmpRestaurants.map(restau => 
+              //     restau.restaurantID === restaurant.restaurantID ? restau.displayDetails = !restau.displayDetails : null
+              // )
+              // console.log(tmpRestaurants);
+              // updateRestaurants(tmpRestaurants);
+              
               setSelectedRestaurant(restaurant);
               setSelectedLocation(null);
               clickRestaurant(restaurant);
