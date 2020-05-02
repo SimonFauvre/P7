@@ -11,22 +11,12 @@ const Map = props => {
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const [selectedLocation, setSelectedLocation] = useState(null);
     const location = useGeolocation();
-    let center = {lat: location.latitude, lng: location.longitude};
+    //let center = {lat: location.latitude, lng: location.longitude};
+    let center = {lat:  45.764042, lng: 4.835659};
   
-    // if (selectedRestaurant !== null) {
-    //   center = {lat: selectedRestaurant.lat, lng: selectedRestaurant.long};
-    // } else if (selectedLocation !== null) {
-    //   center = {lat: selectedLocation.latitude, lng: selectedLocation.longitude};
-    // } else if (selectedRestaurant === null || selectedLocation === null){
-    //   // Modifier pour ne plus centrer la carte sur un point précis
-    // }
   
     const clickRestaurant = (restaurant) => {
-        //console.log(restaurant);
-        // console.log(restaurants);
-        // var a = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
-        // console.log(a);
-        // console.log(a.displayDetails = true);
+        
     }
   
     return (
@@ -77,13 +67,6 @@ const Map = props => {
             key={restaurant.restaurantID}
             position={{lat: restaurant.lat, lng: restaurant.long}}
             onClick={() => {
-              // console.log(restaurants);
-              // let tmpRestaurants = restaurants;
-              // tmpRestaurants.map(restau => 
-              //     restau.restaurantID === restaurant.restaurantID ? restau.displayDetails = !restau.displayDetails : null
-              // )
-              // console.log(tmpRestaurants);
-              // updateRestaurants(tmpRestaurants);
               
               setSelectedRestaurant(restaurant);
               setSelectedLocation(null);

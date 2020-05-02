@@ -23,10 +23,7 @@ const PanelRight = props => {
     const handleMaxChange = (e) => {
         setNoteMax(parseInt(e.target.value));
     }
-    // useEffect(() => {
-    //   setNoteMax(noteMax);
-    //   filterDatas();
-    // },[noteMax])
+
 
     const filterDatas = () => {
         updateRestaurants(restaurantData.default.features.filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));
