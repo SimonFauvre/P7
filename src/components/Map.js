@@ -33,6 +33,7 @@ const Map = props => {
       <GoogleMap 
         defaultZoom={13} 
         defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
+        //defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
         center={center}
         defaultOptions={{
           styles: mapStyle, 
