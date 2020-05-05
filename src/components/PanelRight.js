@@ -26,7 +26,8 @@ const PanelRight = props => {
 
 
     const filterDatas = () => {
-        updateRestaurants(restaurantData.default.features.filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));
+        updateRestaurants(restaurantData.default.features
+            .filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));
     }
     useEffect(() => {
         updateRestaurants(restaurants);

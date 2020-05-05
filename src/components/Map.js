@@ -4,6 +4,8 @@ import {GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow} from 'react-
 import mapStyle from "../style/mapStyle.js";
 import useGeolocation from "react-hook-geolocation";
 import RestaurantContext from "./RestaurantContext";
+//https://stackoverflow.com/questions/24884320/reactjs-how-to-update-a-component-from-another
+
 
 const Map = props => {
 
@@ -67,7 +69,8 @@ const Map = props => {
             key={restaurant.restaurantID}
             position={{lat: restaurant.lat, lng: restaurant.long}}
             onClick={() => {
-              
+              //alert(JSON.stringify(restaurant))
+              // doit illuminer le restauratn das la sidebar
               setSelectedRestaurant(restaurant);
               setSelectedLocation(null);
               clickRestaurant(restaurant);

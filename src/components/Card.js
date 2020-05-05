@@ -15,7 +15,7 @@ const Card = props => {
             console.log(restaurants);
             let tmpRestaurants = restaurants;
             tmpRestaurants.map(restau => 
-                restau.restaurantID === restaurant.restaurantID ? restau.displayDetails = !restaurant.displayDetails : null
+                restau.restaurantID === restaurant.restaurantID ? restau.displayDetails = !restaurant.displayDetails : false
             )
             console.log(tmpRestaurants);
             updateRestaurants(tmpRestaurants);
