@@ -11,7 +11,6 @@ const App = () => {
 
   //cette fonction mutate le state de App.js et est passée à la map
   const handleMarkerClick = (id) => {
-    alert(id)
     const tmpRestaurants = restaurants.map(restaurant => {
       if (restaurant.restaurantID == id) {
         restaurant.displayDetails = !restaurant.displayDetails
@@ -20,7 +19,6 @@ const App = () => {
         return restaurant
       }
     })
-    debugger
     setRestaurants(tmpRestaurants)
   }
 
