@@ -5,8 +5,8 @@ import RestaurantContext from "./RestaurantContext";
 
 const List = props => {
 
-    const { restaurants, updateRestaurants } = useContext(RestaurantContext);
-
+    const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext);
+    debugger
     return (restaurants ?
 
         <ul className="list">

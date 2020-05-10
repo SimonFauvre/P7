@@ -16,9 +16,11 @@ const App = () => {
       if (restaurant.restaurantID == id) {
         restaurant.displayDetails = !restaurant.displayDetails
         return restaurant
+      } else {
+        return restaurant
       }
     })
-
+    debugger
     setRestaurants(tmpRestaurants)
   }
 
