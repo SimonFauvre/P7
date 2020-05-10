@@ -8,16 +8,37 @@ import RestaurantsContext from "./RestaurantContext";
 const App = () => {
 
   const [restaurants, setRestaurants] = useState([...restaurantData.default.features]);
+
+  //cette fonction mutate le state de App.js et est passée à la map
+  const handleMarkerClick = (id) => {
+    alert(id)
+    const tmpRestaurants = restaurants.map(restaurant => {
+      if (restaurant.restaurantID == id) {
+        restaurant.displayDetails = !restaurant.displayDetails
+        return restaurant
+      }
+    })
+
+    setRestaurants(tmpRestaurants)
+  }
+
+  // create context???
   const contextValue = {
     restaurants: restaurants,
-    updateRestaurants: setRestaurants
+    updateRestaurants: setRestaurants,
+    handleMarkerClick: handleMarkerClick
   }
 
   useEffect(() => {
-    setRestaurants(restaurants);
-  }, [restaurants])
+    restaurants.map(restaurant => (
+      moyenneAvis(restaurant),
+      defineDisplayDetails(restaurant)
+    ));
+  }, [])
+
 
   const moyenneAvis = (restaurant) => {
+    console.log(restaurant)
     var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
     const totalStars = restaurant.ratings.map(rating => rating.stars).reduce((previousValue, currentValue, index, array) => {
       var value = index + 1 === array.length ? (previousValue + currentValue) / array.length : previousValue + currentValue;
@@ -27,19 +48,20 @@ const App = () => {
     restaurantSelect[0].average = parseFloat(totalStars.toFixed(1));
   }
 
+  //inutile??
   const defineDisplayDetails = (restaurant) => {
     var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
     restaurantSelect[0].displayDetails = false;
   }
 
-  const initRestaurant = () => {
-    restaurants.map(restaurant => (
-      moyenneAvis(restaurant),
-      defineDisplayDetails(restaurant)
-    ));
-  }
+  // const initRestaurant = () => {
+  //   restaurants.map(restaurant => (
+  //     moyenneAvis(restaurant),
+  //     defineDisplayDetails(restaurant)
+  //   ));
+  // }
 
-  initRestaurant();
+  //initRestaurant();
 
   return (
     <RestaurantsContext.Provider value={contextValue}>
@@ -49,6 +71,7 @@ const App = () => {
             loadingElement={<div style={{ height: "100%" }} />}
             containerElement={<div style={{ height: "100%" }} />}
             mapElement={<div style={{ height: "100%" }} />}
+            handleMarkerClick={handleMarkerClick}
           />
         </div>
         <div style={{ width: '35vw', height: '100vh' }}>

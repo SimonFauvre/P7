@@ -9,13 +9,10 @@ import RestaurantContext from "./RestaurantContext";
 
 const Map = props => {
 
-  const { restaurants, updateRestaurants } = useContext(RestaurantContext);
+  const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const location = useGeolocation();
-
-  //const [restaurants, setRestaurants] = useState(props.restaurants);
-
 
   //let center = {lat: location.latitude, lng: location.longitude};
   let center = { lat: 45.764042, lng: 4.835659 };
@@ -24,6 +21,7 @@ const Map = props => {
   useEffect(() => {
     updateRestaurants(restaurants)
     console.log('restau updaté')
+    console.log(restaurants)
   }, [restaurants])
 
   const handleCloseInfoWindow = (restaurant) => {
@@ -41,24 +39,8 @@ const Map = props => {
     updateRestaurants(tmpresto)
   }
 
-  const handleClickRestaurant = (restaurant) => {
-    // debugger
-    //mettre à jour le state depuis ce click
-    const newRestaurants = [...restaurants]
-
-    const tmpresto = newRestaurants.map(item => {
-      if (item.restaurantID == restaurant.restaurantID) {
-        item.displayDetails = true
-      } else {
-        item.displayDetails = false
-      }
-      return item
-    })
-
-    updateRestaurants(tmpresto)
-  }
-
   return (
+
     <GoogleMap
       defaultZoom={13}
       defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
@@ -101,17 +83,20 @@ const Map = props => {
         </InfoWindow>
       )}
 
+      {/* Marker Restaurant */}
       {restaurants.map(restaurant => (
         <Marker
+          onClick={() => handleMarkerClick(restaurant.restaurantID)}
           key={restaurant.restaurantID}
           position={{ lat: restaurant.lat, lng: restaurant.long }}
-          onClick={() => {
-            //alert(JSON.stringify(restaurant))
-            // doit ouvrir le restaurant dans la sidebar
-            setSelectedRestaurant(restaurant);
-            setSelectedLocation(null);
-            handleClickRestaurant(restaurant);
-          }}
+          // onClick={() => {
+          //   //alert(JSON.stringify(restaurant))
+          //   // doit ouvrir le restaurant dans la sidebar
+          //   setSelectedRestaurant(restaurant);
+          //   setSelectedLocation(null);
+          //   handleClickRestaurant(restaurant);
+          // }}
+
           icon={{
             url: "/logo_resto.png",
             scaledSize: new window.google.maps.Size(30, 30)
@@ -133,6 +118,7 @@ const Map = props => {
         </InfoWindow>
       )}
     </GoogleMap>
+
   );
 }
 

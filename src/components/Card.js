@@ -8,6 +8,8 @@ const Card = props => {
     const { restaurants, updateRestaurants } = useContext(RestaurantContext);
     const [restaurant, setRestaurant] = useState(restaurants.filter(restau => restau.restaurantID === props.restaurantID)[0]);
 
+    const [displayDetails, setDisplayDetails] = useState(false)
+
     // agit sur le state et pas la props
     const changeDisplayDetails = (e) => {
         if (e.target.className !== "selectNote" && e.target.className !== "textCommentaire" && e.target.className !== "btnAjoutCommentaire") {
