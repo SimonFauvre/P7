@@ -1,14 +1,15 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../style/Card_Details.css";
 import RestaurantContext from "./RestaurantContext";
 
 const CardDetails = props => {
 
-    const {restaurants, updateRestaurants} = useContext(RestaurantContext);
+    const { restaurants, updateRestaurants } = useContext(RestaurantContext);
     const [restaurant, setRestaurant] = useState(restaurants.filter(restau => restau.restaurantID === props.restaurant.restaurantID)[0]);
     const [moyenneAvis, setMoyenneAvis] = useState(restaurant.average);
     const [avis, setAvis] = useState("Insérer un nouveau commentaire");
     const [note, setNote] = useState(1);
+
     var imgSrc = "https://maps.googleapis.com/maps/api/streetview?size=312x240&location=" + restaurant.lat + "," + restaurant.long + "&heading=151.78&pitch=-0.76&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs";
 
     const addCommentToJson = (commentaire, restaurant) => {
@@ -19,7 +20,7 @@ const CardDetails = props => {
             newAvis.comment = commentaire;
             restaurantSelect[0].ratings.push(newAvis);
 
-            setRestaurant({...restaurant, restaurant: restaurantSelect[0]});
+            setRestaurant({ ...restaurant, restaurant: restaurantSelect[0] });
             setAvis("Insérer un nouveau commentaire");
             document.getElementsByClassName("textCommentaire")[0].style.color = "grey";
             moyenneNote(restaurant);
@@ -35,8 +36,8 @@ const CardDetails = props => {
         setNote(parseInt(e.target.value));
     }
     useEffect(() => {
-      setNote(note);
-    },[note])
+        setNote(note);
+    }, [note])
 
     const moyenneNote = (restaurant) => {
         let ratingsLength = restaurant.ratings.length;
@@ -49,8 +50,8 @@ const CardDetails = props => {
         setMoyenneAvis(restaurant.average);
 
         let tmpRestaurants = restaurants;
-        tmpRestaurants.map(restau => 
-            restau.restaurantID === restaurant.restaurantID ? 
+        tmpRestaurants.map(restau =>
+            restau.restaurantID === restaurant.restaurantID ?
                 restau = restaurant : null
         )
         updateRestaurants(tmpRestaurants);
@@ -58,9 +59,9 @@ const CardDetails = props => {
 
     useEffect(() => {
         updateRestaurants(restaurants);
-    },[])
+    }, [])
 
-    return(
+    return (
         <div className="details">
             <div className="detailsRestaurant">
                 <img className="imgRestaurantDetails" src={imgSrc} alt=""></img>

@@ -16,19 +16,17 @@ const PanelRight = props => {
     }
     useEffect(() => {
       setNoteMin(noteMin);
+      setNoteMax(noteMax);
       filterDatas();
-    },[noteMin])
+    },[noteMin,noteMax])
 
     const handleMaxChange = (e) => {
         setNoteMax(parseInt(e.target.value));
     }
-    useEffect(() => {
-      setNoteMax(noteMax);
-      filterDatas();
-    },[noteMax])
 
     const filterDatas = () => {
-        updateRestaurants(restaurantData.default.features.filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));
+        updateRestaurants(restaurantData.default.features
+            .filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));
     }
     useEffect(() => {
         updateRestaurants(restaurants);
