@@ -24,7 +24,6 @@ const PanelRight = props => {
         setNoteMax(parseInt(e.target.value));
     }
 
-
     const filterDatas = () => {
         updateRestaurants(restaurantData.default.features
             .filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));

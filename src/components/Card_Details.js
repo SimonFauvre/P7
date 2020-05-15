@@ -10,8 +10,6 @@ const CardDetails = props => {
     const [avis, setAvis] = useState("Insérer un nouveau commentaire");
     const [note, setNote] = useState(1);
 
-
-
     var imgSrc = "https://maps.googleapis.com/maps/api/streetview?size=312x240&location=" + restaurant.lat + "," + restaurant.long + "&heading=151.78&pitch=-0.76&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs";
 
     const addCommentToJson = (commentaire, restaurant) => {
