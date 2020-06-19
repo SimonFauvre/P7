@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react'
 import '../style/App.css'
 import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps'
 import mapStyle from "../style/mapStyle.js"
-import useGeolocation from "react-hook-geolocation"
 import RestaurantContext from "./RestaurantContext"
 
 const Map = props => {
@@ -10,7 +9,7 @@ const Map = props => {
   const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext)
   const [selectedRestaurant, setSelectedRestaurant] = useState(null)
   const [selectedLocation, setSelectedLocation] = useState(null)
-  let center = {lat: props.location.latitude, lng: props.location.longitude}
+  let center = {lat: props.location.lat, lng: props.location.lng}
 
   useEffect(() => {
     let element = document.getElementsByClassName("map")[0]
@@ -44,7 +43,7 @@ const Map = props => {
   const initMap = () => {
     return (
     <GoogleMap
-      defaultZoom={13}
+      defaultZoom={15}
       defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
       center={center}
       defaultOptions={{
@@ -62,7 +61,7 @@ const Map = props => {
       }}>
       {/* Marker Utilisateur */}
       <Marker
-        position={{ lat: parseFloat(props.location.latitude), lng: parseFloat(props.location.longitude) }}
+        position={{ lat: props.location.lat, lng: props.location.lng }}
         onClick={() => {
           setSelectedLocation(props.location);
           setSelectedRestaurant(null);

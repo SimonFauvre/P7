@@ -32,7 +32,6 @@ const Card = props => {
         .then((res) => res.json())
         .then(data => transformDatas(data))
         .then(data => {
-            console.log(data)
             updateRestaurants([...restaurants])
         })
         .catch((err) => console.log(err))

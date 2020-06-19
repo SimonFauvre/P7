@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../style/PanelRight.css";
-import * as restaurantData from "../data/restaurant.json";
 import WrappedMap from "./Map";
 import PanelRight from "./PanelRight";
 import RestaurantsContext from "./RestaurantContext";
