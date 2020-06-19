@@ -57,10 +57,6 @@ const CardDetails = props => {
         updateRestaurants(tmpRestaurants);
     }
 
-    useEffect(() => {
-        updateRestaurants(restaurants);
-    }, [])
-
     return (
         <div className="details">
             <div className="detailsRestaurant">
@@ -70,7 +66,7 @@ const CardDetails = props => {
                     <div className="moyenneAvis">
                         <span className="moyenneAvisText">{moyenneAvis}</span>
                         <img className="etoileAvis" src="etoile.png" alt="Etoile des avis"></img>
-                        <span className="nbRatings">{restaurant.ratings.length} avis</span>
+                        <span className="nbRatings">{restaurant.ratingsTotal} avis</span>
                     </div>
                     <div className="adresse">{restaurant.address}</div>
                 </div>

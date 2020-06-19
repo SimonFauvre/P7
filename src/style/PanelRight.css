@@ -52,6 +52,7 @@ select{
     padding-bottom: 5px;
     padding-left: 15px;
     padding-right: 15px;
+    border-radius: 5px;
     border: 1px solid;
     border-color: #f5f8b3;
     background-color: rgb(29, 29, 29);

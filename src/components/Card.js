@@ -7,6 +7,7 @@ const Card = props => {
 
     const { restaurants, updateRestaurants } = useContext(RestaurantContext);
     const [restaurant, setRestaurant] = useState(restaurants.filter(restau => restau.restaurantID === props.restaurantID)[0]);
+    const [alreadyGet, setAlreadyGet] = useState(false);
 
     // Agit sur le state et pas la props
     const changeDisplayDetails = (e) => {
@@ -17,8 +18,40 @@ const Card = props => {
             tmpRestaurants.map(restau =>
                 restau.restaurantID === restaurant.restaurantID ? restau.displayDetails = !restaurant.displayDetails : false
             )
+            
+            if (!alreadyGet) {
+                getRatingsRestaurant(restaurant);
+                setAlreadyGet(true);
+            }
             updateRestaurants(tmpRestaurants);
         }
+    }
+
+    const getRatingsRestaurant = (restaurant) => {
+        fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${restaurant.restaurantID}&fields=name,rating,reviews,geometry,formatted_address,photos,place_id&key=AIzaSyA1j6BRMbbmh3M1qFh9jGzbFAa5NxGVbHI`)
+        .then((res) => res.json())
+        .then(data => transformDatas(data))
+        .then(data => {
+            console.log(data)
+            updateRestaurants([...restaurants])
+        })
+        .catch((err) => console.log(err))
+    }
+
+    const transformDatas = (data) => {    
+        let restaurantTransform = []
+        let dataReviews = data.result.reviews
+        let tmpRestaurant = restaurant
+
+        dataReviews.map(review => {
+            let tmpReview = {}
+            tmpReview.stars = review.rating
+            tmpReview.comment = review.text
+            tmpRestaurant.ratings.push(tmpReview)
+        })
+        
+        restaurantTransform.push(tmpRestaurant)
+        return tmpRestaurant
     }
 
     useEffect(() => {
@@ -43,7 +76,7 @@ const Card = props => {
                                     {restaurants.filter(restau => restau.restaurantID === props.restaurantID)[0].average}
                                 </span>
                                 <img src="etoile.png" className="etoileAvis" alt="Etoile des avis"></img>
-                                <span className="nbRatings">{restaurant.ratings.length} avis</span>
+                                <span className="nbRatings">{restaurant.ratingsTotal} avis</span>
                             </div>
                             <div className="adresse">{restaurant.address}</div>
                         </div>

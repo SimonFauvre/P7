@@ -1,22 +1,39 @@
-import React, { useState, useContext, useEffect } from 'react';
-import '../style/App.css';
-import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps';
-import mapStyle from "../style/mapStyle.js";
-import useGeolocation from "react-hook-geolocation";
-import RestaurantContext from "./RestaurantContext";
-//https://stackoverflow.com/questions/24884320/reactjs-how-to-update-a-component-from-another
+import React, { useState, useContext, useEffect } from 'react'
+import '../style/App.css'
+import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps'
+import mapStyle from "../style/mapStyle.js"
+import useGeolocation from "react-hook-geolocation"
+import RestaurantContext from "./RestaurantContext"
 
 const Map = props => {
 
-  const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext);
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const location = useGeolocation();
-  let center = { lat: 45.764042, lng: 4.835659 };
+  const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext)
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null)
+  const [selectedLocation, setSelectedLocation] = useState(null)
+  let center = {lat: props.location.latitude, lng: props.location.longitude}
 
   useEffect(() => {
-    updateRestaurants(restaurants)
-  }, [restaurants])
+    let element = document.getElementsByClassName("map")[0]
+    element.addEventListener("click", clickMap)
+  }, [])
+
+  const clickMap = () => {   
+
+  }
+
+  // const getPlaceID = (datas) => {
+  //   let tmpData = []
+  //   datas.results.map(data => {
+  //     fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${data.place_id}&fields=name,rating,reviews,geometry,formatted_address,photos,place_id&key=AIzaSyBzAf_XKIdBQt792tABxjCgQdDuL7r20W8`)
+  //     .then((res) => res.json())
+  //     .then(data => transformDatas(data))
+  //     .then(data => {
+  //       console.log(restaurants)
+  //       updateRestaurants([...restaurants, data])
+  //     })
+  //     .catch((err) => console.log(err))
+  //   })
+  // }
 
   const onClickMarkerRestaurant = (restaurant, open) => {
     handleMarkerClick(restaurant.restaurantID, open)
@@ -24,7 +41,8 @@ const Map = props => {
     setSelectedLocation(null)
   }
 
-  return (
+  const initMap = () => {
+    return (
     <GoogleMap
       defaultZoom={13}
       defaultCenter={{ lat: 45.764042, lng: 4.835659 }}
@@ -44,9 +62,9 @@ const Map = props => {
       }}>
       {/* Marker Utilisateur */}
       <Marker
-        position={{ lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) }}
+        position={{ lat: parseFloat(props.location.latitude), lng: parseFloat(props.location.longitude) }}
         onClick={() => {
-          setSelectedLocation(location);
+          setSelectedLocation(props.location);
           setSelectedRestaurant(null);
         }}
         icon={{
@@ -92,7 +110,12 @@ const Map = props => {
         </InfoWindow>
       )}
     </GoogleMap>
-  );
+    )
+  }
+
+  return (
+    initMap()
+  )
 }
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));
