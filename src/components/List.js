@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "../style/List.css";
 import Card from "./Card";
 import RestaurantContext from "./RestaurantContext";
 
 const List = props => {
 
-    const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext);
-    return (restaurants ?
+    const { tmpRestaurants, updateTmpRestaurants } = useContext(RestaurantContext);
 
+    return (tmpRestaurants ?
         <ul className="list">
-            {restaurants.map(restaurant => (
+            {tmpRestaurants.map(restaurant => (
                 <Card key={restaurant.restaurantID} restaurantID={restaurant.restaurantID} />
-
+                
             ))}
         </ul>
 

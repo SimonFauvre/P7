@@ -9,12 +9,16 @@ const Map = props => {
   const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext)
   const [selectedRestaurant, setSelectedRestaurant] = useState(null)
   const [selectedLocation, setSelectedLocation] = useState(null)
-  let center = {lat: props.location.lat, lng: props.location.lng}
+  const [center, setCenter] = useState({lat: null, lng: null})
 
   useEffect(() => {
     let element = document.getElementsByClassName("map")[0]
     element.addEventListener("click", clickMap)
   }, [])
+
+  useEffect(() => {
+    setCenter(props.location)
+  }, [props.location])
 
   const clickMap = () => {   
 
@@ -36,7 +40,7 @@ const Map = props => {
 
   const onClickMarkerRestaurant = (restaurant, open) => {
     handleMarkerClick(restaurant.restaurantID, open)
-    setSelectedRestaurant(restaurant)
+    open === true ? setSelectedRestaurant(restaurant) : setSelectedRestaurant(null)
     setSelectedLocation(null)
   }
 
@@ -61,9 +65,9 @@ const Map = props => {
       }}>
       {/* Marker Utilisateur */}
       <Marker
-        position={{ lat: props.location.lat, lng: props.location.lng }}
+        position={center}
         onClick={() => {
-          setSelectedLocation(props.location);
+          setSelectedLocation(center);
           setSelectedRestaurant(null);
         }}
         icon={{
@@ -74,7 +78,7 @@ const Map = props => {
       {/* InfoWindow Utilisateur */}
       {selectedLocation && (
         <InfoWindow
-          position={{ lat: parseFloat(selectedLocation.latitude), lng: parseFloat(selectedLocation.longitude) }}
+          position={center}
           options={{ pixelOffset: new window.google.maps.Size(0, -20) }}
           onCloseClick={() => {
             setSelectedLocation(null);
@@ -90,7 +94,7 @@ const Map = props => {
         <Marker
           onClick={() => onClickMarkerRestaurant(restaurant, true)}
           key={restaurant.restaurantID}
-          position={{ lat: restaurant.lat, lng: restaurant.long }}
+          position={{ lat: restaurant.lat, lng: restaurant.lng }}
           icon={{
             url: "/logo_resto.png",
             scaledSize: new window.google.maps.Size(30, 30)
@@ -100,7 +104,7 @@ const Map = props => {
       {/* InfoWindow Restaurant */}
       {selectedRestaurant && (
         <InfoWindow
-          position={{ lat: selectedRestaurant.lat, lng: selectedRestaurant.long }}
+          position={{ lat: selectedRestaurant.lat, lng: selectedRestaurant.lng }}
           onCloseClick={() => onClickMarkerRestaurant(selectedRestaurant, false)}
           options={{ pixelOffset: new window.google.maps.Size(0, -30) }}>
           <div>

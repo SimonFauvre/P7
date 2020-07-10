@@ -4,8 +4,8 @@ import RestaurantContext from "./RestaurantContext";
 
 const CardDetails = props => {
 
-    const { restaurants, updateRestaurants } = useContext(RestaurantContext);
-    const [restaurant, setRestaurant] = useState(restaurants.filter(restau => restau.restaurantID === props.restaurant.restaurantID)[0]);
+    const { tmpRestaurants, updateTmpRestaurants} = useContext(RestaurantContext);
+    const [restaurant, setRestaurant] = useState(tmpRestaurants.filter(restau => restau.restaurantID === props.restaurant.restaurantID)[0]);
     const [moyenneAvis, setMoyenneAvis] = useState(restaurant.average);
     const [avis, setAvis] = useState("Insérer un nouveau commentaire");
     const [note, setNote] = useState(1);
@@ -14,11 +14,13 @@ const CardDetails = props => {
 
     const addCommentToJson = (commentaire, restaurant) => {
         if (commentaire !== "Insérer un nouveau commentaire") {
-            var restaurantSelect = restaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
+
+            var restaurantSelect = tmpRestaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
             var newAvis = {};
             newAvis.stars = note;
             newAvis.comment = commentaire;
             restaurantSelect[0].ratings.push(newAvis);
+            restaurantSelect[0].ratingsTotal = restaurantSelect[0].ratingsTotal + 1;
 
             setRestaurant({ ...restaurant, restaurant: restaurantSelect[0] });
             setAvis("Insérer un nouveau commentaire");
@@ -41,20 +43,26 @@ const CardDetails = props => {
 
     const moyenneNote = (restaurant) => {
         let ratingsLength = restaurant.ratings.length;
-        restaurant.average = 0;
+        let moyennePrevious = restaurant.average;
         restaurant.ratings.map(note =>
             restaurant.average += note.stars
         );
-        let moyenne = restaurant.average / ratingsLength;
-        restaurant.average = parseFloat(moyenne.toFixed(1));
+
+        let ratingsTotalM1 = (restaurant.ratingsTotal - 1)
+        let note = restaurant.ratings[ratingsLength - 1].stars
+        let ratingsTotal = restaurant.ratingsTotal
+
+        let moyenne = ((moyennePrevious * ratingsTotalM1) + note) / ratingsTotal;
+        restaurant.average = parseFloat(moyenne.toFixed(2));
         setMoyenneAvis(restaurant.average);
 
-        let tmpRestaurants = restaurants;
-        tmpRestaurants.map(restau =>
+        let tmp = tmpRestaurants;
+        tmp.map(restau =>
             restau.restaurantID === restaurant.restaurantID ?
                 restau = restaurant : null
         )
-        updateRestaurants(tmpRestaurants);
+
+        updateTmpRestaurants(tmp);
     }
 
     return (

@@ -5,8 +5,8 @@ import RestaurantContext from "./RestaurantContext";
 
 const Card = props => {
 
-    const { restaurants, updateRestaurants } = useContext(RestaurantContext);
-    const [restaurant, setRestaurant] = useState(restaurants.filter(restau => restau.restaurantID === props.restaurantID)[0]);
+    const { tmpRestaurants, updateTmpRestaurants } = useContext(RestaurantContext);
+    const [restaurant, setRestaurant] = useState(tmpRestaurants.filter(restau => restau.restaurantID === props.restaurantID)[0]);
     const [alreadyGet, setAlreadyGet] = useState(false);
 
     // Agit sur le state et pas la props
@@ -14,8 +14,8 @@ const Card = props => {
         if (e.target.className !== "selectNote" && e.target.className !== "textCommentaire" && e.target.className !== "btnAjoutCommentaire") {
             setRestaurant({ ...restaurant, displayDetails: !restaurant.displayDetails });
 
-            let tmpRestaurants = restaurants;
-            tmpRestaurants.map(restau =>
+            let tmp = tmpRestaurants;
+            tmp.map(restau =>
                 restau.restaurantID === restaurant.restaurantID ? restau.displayDetails = !restaurant.displayDetails : false
             )
             
@@ -23,7 +23,7 @@ const Card = props => {
                 getRatingsRestaurant(restaurant);
                 setAlreadyGet(true);
             }
-            updateRestaurants(tmpRestaurants);
+            updateTmpRestaurants(tmp);
         }
     }
 
@@ -32,30 +32,30 @@ const Card = props => {
         .then((res) => res.json())
         .then(data => transformDatas(data))
         .then(data => {
-            updateRestaurants([...restaurants])
+            updateTmpRestaurants([...tmpRestaurants])
         })
         .catch((err) => console.log(err))
     }
 
-    const transformDatas = (data) => {    
-        let restaurantTransform = []
-        let dataReviews = data.result.reviews
-        let tmpRestaurant = restaurant
+    const transformDatas = (data) => { 
+        if (data.result.reviews) {
+            let restaurantTransform = []
+            let dataReviews = data.result.reviews
+            let tmpRestaurant = restaurant
 
-        dataReviews.map(review => {
-            let tmpReview = {}
-            tmpReview.stars = review.rating
-            tmpReview.comment = review.text
-            tmpRestaurant.ratings.push(tmpReview)
-        })
-        
-        restaurantTransform.push(tmpRestaurant)
-        return tmpRestaurant
+            dataReviews.map(review => {
+                let tmpReview = {}
+                tmpReview.stars = review.rating
+                tmpReview.comment = review.text
+                tmpRestaurant.ratings.push(tmpReview)
+            })
+            
+            restaurantTransform.push(tmpRestaurant)
+            return tmpRestaurant
+        } else {
+            return null
+        }
     }
-
-    useEffect(() => {
-        updateRestaurants(restaurants);
-    })
 
     return (
         <div className="card">
@@ -64,7 +64,7 @@ const Card = props => {
                 className="itemList"
                 id={"restaurant-" + restaurant.restaurantID}
                 onClick={changeDisplayDetails}>
-                {restaurants.filter(restau => restau.restaurantID === props.restaurantID)[0].displayDetails ?
+                {tmpRestaurants.filter(restau => restau.restaurantID === props.restaurantID)[0].displayDetails ?
                     <CardDetails restaurant={restaurant} /> :
                     <div className="cardRestaurant">
                         <img className="imgRestaurant" src={restaurant.img} alt="Le restaurant"></img>
@@ -72,10 +72,10 @@ const Card = props => {
                             <h2>{restaurant.restaurantName}</h2>
                             <div className="moyenneAvis">
                                 <span className="moyenneAvisText">
-                                    {restaurants.filter(restau => restau.restaurantID === props.restaurantID)[0].average}
+                                    {tmpRestaurants.filter(restau => restau.restaurantID === props.restaurantID)[0].average}
                                 </span>
                                 <img src="etoile.png" className="etoileAvis" alt="Etoile des avis"></img>
-                                <span className="nbRatings">{restaurant.ratingsTotal} avis</span>
+                                <span className="nbRatings">{tmpRestaurants.filter(restau => restau.restaurantID === props.restaurantID)[0].ratingsTotal} avis</span>
                             </div>
                             <div className="adresse">{restaurant.address}</div>
                         </div>

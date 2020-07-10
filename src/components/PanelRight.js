@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from "react";
 import "../style/PanelRight.css";
-import * as restaurantData from "../data/restaurant.json";
 import List from "./List";
 import RestaurantContext from "./RestaurantContext";
 
 const PanelRight = props => {
 
     const {restaurants, updateRestaurants} = useContext(RestaurantContext);
+    const {tmpRestaurants, updateTmpRestaurants} = useContext(RestaurantContext);
 
     const [noteMin, setNoteMin] = useState(1);
     const [noteMax, setNoteMax] = useState(5);
@@ -14,9 +14,11 @@ const PanelRight = props => {
     const handleMinChange = (e) => {
         setNoteMin(parseInt(e.target.value));
     }
+
     useEffect(() => {
       setNoteMin(noteMin);
       setNoteMax(noteMax);
+
       filterDatas();
     },[noteMin,noteMax])
 
@@ -25,12 +27,17 @@ const PanelRight = props => {
     }
 
     const filterDatas = () => {
-        updateRestaurants(restaurantData.default.features
-            .filter(restaurant => restaurant.average >= noteMin && restaurant.average <= noteMax));
+        if (restaurants) {
+            updateTmpRestaurants(
+                restaurants.filter(restaurant => {
+                    if (restaurant.average === null && noteMin === 1 && noteMax === 5) {
+                        return restaurant
+                    } else if (restaurant.average >= noteMin && restaurant.average <= noteMax) {
+                        return restaurant
+                    }
+                }));
+        }
     }
-    useEffect(() => {
-        updateRestaurants(restaurants);
-    },[restaurants])
 
     return (
         <div>
