@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import '../style/App.css'
+import '../style/Map.css'
 import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from 'react-google-maps'
 import mapStyle from "../style/mapStyle.js"
 import RestaurantContext from "./RestaurantContext"
@@ -7,34 +8,46 @@ import RestaurantContext from "./RestaurantContext"
 const Map = props => {
 
   const { restaurants, updateRestaurants, handleMarkerClick } = useContext(RestaurantContext)
-  const { tmpRestaurants, updateTmpRestaurants } = useContext(RestaurantContext);
+  const { tmpRestaurants, setUpdateTmpRestaurants } = useContext(RestaurantContext);
   const [selectedRestaurant, setSelectedRestaurant] = useState(null)
   const [selectedLocation, setSelectedLocation] = useState(null)
   const [center, setCenter] = useState({lat: null, lng: null})
+  const [addResto, setAddResto] = useState(false)
 
   useEffect(() => {
     setCenter(props.location)
   }, [props.location])
 
+  const [tmpLocRestaurant, setTmpLocRestaurant] = useState({lat: null, lng: null})
+
   const clickMap = (event) => {
-    console.log('click', event.latLng.lat(), event.latLng.lng())
+    setAddResto(true)
+    setTmpLocRestaurant({lat: event.latLng.lat(), lng: event.latLng.lng()})
+  }
 
+  const addRestaurant = (name, address, stars, comment) => {
     let tmpResto = {}
-    tmpResto.restaurantID = 'fszvzzscrezsvdefcdz'
-    tmpResto.restaurantName = 'Restaurant TEST'
-    tmpResto.address = '8 bis, rue Hugues Guérin'
-    tmpResto.lat = event.latLng.lat()
-    tmpResto.lng = event.latLng.lng()
+    tmpResto.restaurantID = name + '-ID'
+    tmpResto.restaurantName = name
+    tmpResto.address = address
+    tmpResto.lat = tmpLocRestaurant.lat
+    tmpResto.lng = tmpLocRestaurant.lng
     tmpResto.ratings = [{
-      comment: 'SUPER',
-      stars: 3
+      comment: comment,
+      stars: stars
     }]
-    tmpResto.average = 3
+    tmpResto.average = stars
     tmpResto.ratingsTotal = 1
-    tmpResto.img = ''
+    tmpResto.img = '/logo_resto.png'
 
-    //updateRestaurants([...restaurants, tmpResto])
-    updateTmpRestaurants([...tmpRestaurants, tmpResto])
+    updateRestaurants([...restaurants, tmpResto])
+    setUpdateTmpRestaurants([...tmpRestaurants, tmpResto])
+
+    setAddResto(false)
+    setNom('')
+    setAdresse('')
+    setNote(1)
+    setAvis('')
   }
 
   const dragMap = () => {
@@ -130,8 +143,39 @@ const Map = props => {
     )
   }
 
+  const [avis, setAvis] = useState('')
+  const [note, setNote] = useState(1)
+  const [nom, setNom] = useState('')
+  const [adresse, setAdresse] = useState('')
+
   return (
-    initMap()
+    <div>
+      {initMap()}
+      {addResto ? 
+        <div className='addResto'>
+          <h3>Ajouter un restaurant</h3>
+          <div className='inputNom'>
+            <div>Nom du restaurant</div>
+            <input type="text" className="textNomRestaurant" name="Nom du restaurant" placeholder='Le Fourvière' value={nom} onChange={(e) => {setNom(e.target.value); e.target.style.color = "white"}}></input>
+          </div>
+          <div lassName='inputAdresse'>
+            <div>Adresse</div>
+            <input type="text" className="textAdresse" name="Adresse" placeholder='8 place de Fourvière, Lyon' value={adresse} onChange={(e) => {setAdresse(e.target.value); e.target.style.color = "white"}}></input>
+          </div>
+          <div className="newComment">
+                <select className="selectNote" id="selectNote" value={note} onChange={e => setNote(parseInt(e.target.value))}>
+                    <option value={1}>1</option>
+                    <option value={2}>2</option>
+                    <option value={3}>3</option>
+                    <option value={4}>4</option>
+                    <option value={5}>5</option>
+                </select>
+                <input type="text" className="textCommentaire" name="Commentaire" placeholder='Insérer un nouveau commentaire' value={avis} onChange={(e) => {setAvis(e.target.value); e.target.style.color = "white"}}></input>
+            </div>
+            <input type="submit" className="btnAjoutRestaurant" value="Ajouter" onClick={() => addRestaurant(nom, adresse, note, avis)}></input>
+        </div> 
+        : null}
+    </div>
   )
 }
 

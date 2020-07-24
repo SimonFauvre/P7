@@ -86,7 +86,8 @@ const App = () => {
     updateRestaurants: setRestaurants,
     handleMarkerClick: handleMarkerClick,
     tmpRestaurants: tmpRestaurants,
-    updateTmpRestaurants: transformTmpToRestaurants
+    updateTmpRestaurants: transformTmpToRestaurants,
+    setUpdateTmpRestaurants: setTmpRestaurants
   }
 
   useEffect(() => {

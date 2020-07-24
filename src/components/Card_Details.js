@@ -7,31 +7,23 @@ const CardDetails = props => {
     const { tmpRestaurants, updateTmpRestaurants} = useContext(RestaurantContext);
     const [restaurant, setRestaurant] = useState(tmpRestaurants.filter(restau => restau.restaurantID === props.restaurant.restaurantID)[0]);
     const [moyenneAvis, setMoyenneAvis] = useState(restaurant.average);
-    const [avis, setAvis] = useState("Insérer un nouveau commentaire");
+    const [avis, setAvis] = useState('');
     const [note, setNote] = useState(1);
 
     var imgSrc = "https://maps.googleapis.com/maps/api/streetview?size=312x240&location=" + restaurant.lat + "," + restaurant.long + "&heading=151.78&pitch=-0.76&key=AIzaSyBbXlKpycaKnkWqib5h17gluphKw_nLENs";
 
     const addCommentToJson = (commentaire, restaurant) => {
-        if (commentaire !== "Insérer un nouveau commentaire") {
+        var restaurantSelect = tmpRestaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
+        var newAvis = {};
+        newAvis.stars = note;
+        newAvis.comment = commentaire;
+        restaurantSelect[0].ratings.push(newAvis);
+        restaurantSelect[0].ratingsTotal = restaurantSelect[0].ratingsTotal + 1;
 
-            var restaurantSelect = tmpRestaurants.filter(feature => feature.restaurantID === restaurant.restaurantID);
-            var newAvis = {};
-            newAvis.stars = note;
-            newAvis.comment = commentaire;
-            restaurantSelect[0].ratings.push(newAvis);
-            restaurantSelect[0].ratingsTotal = restaurantSelect[0].ratingsTotal + 1;
-
-            setRestaurant({ ...restaurant, restaurant: restaurantSelect[0] });
-            setAvis("Insérer un nouveau commentaire");
-            document.getElementsByClassName("textCommentaire")[0].style.color = "grey";
-            moyenneNote(restaurant);
-        }
-    }
-
-    const resetInput = (e) => {
-        e.target.style.color = "white";
-        e.target.value = "";
+        setRestaurant({ ...restaurant, restaurant: restaurantSelect[0] });
+        setAvis('')
+        document.getElementsByClassName("textCommentaire")[0].style.color = "grey";
+        moyenneNote(restaurant);
     }
 
     const handleMinChange = (e) => {
@@ -94,7 +86,7 @@ const CardDetails = props => {
                     <option value={4}>4</option>
                     <option value={5}>5</option>
                 </select>
-                <input type="text" className="textCommentaire" name="Commentaire" value={avis} onClick={resetInput} onChange={(e) => setAvis(e.target.value)}></input>
+                <input type="text" className="textCommentaire" name="Commentaire" placeholder='Insérer un nouveau commentaire' value={avis} onChange={(e) => {setAvis(e.target.value); e.target.style.color = "white"}}></input>
                 <input type="submit" className="btnAjoutCommentaire" value="→" onClick={() => addCommentToJson(avis, restaurant)}></input>
             </div>
         </div>

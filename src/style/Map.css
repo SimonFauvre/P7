@@ -1,0 +1,21 @@
+.addResto{
+    background-color: rgba(61, 61, 61, 0.95);
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 99;
+    bottom: 250px;
+    left: 300px;
+}
+
+h3{
+    padding-top: 10px;
+    padding-bottom: 20px;
+    margin: 0;
+    color: #f5f8b3;
+}
+
+.inputNom, .inputRestaurant{
+    display: flex;
+    flex-direction: row;
+}
