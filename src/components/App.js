@@ -9,6 +9,7 @@ const App = () => {
   const [restaurants, setRestaurants] = useState([])
   const [tmpRestaurants, setTmpRestaurants] = useState([])
   const [location, setLocation] = useState({lat: null, lng: null})
+  const [errorGeolocation, setErrorGeolocation] = useState(false)
 
   // Cette fonction mutate le state de App.js et est passée à la Map
   const handleMarkerClick = (id, open) => {
@@ -65,6 +66,7 @@ const App = () => {
     setTmpRestaurants(tmp)
     let array = restaurants
 
+    console.log(tmp)
     for (let j = 0; j < restaurants.length; j++) {
       for (let i = 0; i < tmpRestaurants.length; i++) {
         let elementTmp = tmpRestaurants[i]
@@ -75,6 +77,7 @@ const App = () => {
       }
     }
 
+    console.log(array)
     setRestaurants(array)
   }
 
@@ -95,7 +98,21 @@ const App = () => {
 
       setLocation(tmpLocation)
 
-      fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude},${position.coords.longitude}&radius=1000&type=restaurant&key=AIzaSyA1j6BRMbbmh3M1qFh9jGzbFAa5NxGVbHI`)
+      fetchRestaurants(position.coords.latitude, position.coords.longitude)
+      // fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude},${position.coords.longitude}&radius=1000&type=restaurant&key=AIzaSyA1j6BRMbbmh3M1qFh9jGzbFAa5NxGVbHI`)
+      // .then((res) => res.json())
+      // .then(data => transformDatas(data))
+      // .then(data => {
+      //   setRestaurants(data)
+      //   setTmpRestaurants(data)
+      // })
+      // .catch((err) => console.log(err))
+    }, errorPosition)
+
+  }, [])
+
+  const fetchRestaurants = (lat, lng) => {
+    fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${lng}&radius=1000&type=restaurant&key=AIzaSyA1j6BRMbbmh3M1qFh9jGzbFAa5NxGVbHI`)
       .then((res) => res.json())
       .then(data => transformDatas(data))
       .then(data => {
@@ -103,13 +120,11 @@ const App = () => {
         setTmpRestaurants(data)
       })
       .catch((err) => console.log(err))
-    })
+  }
 
-  }, [])
-
-  useEffect(() => {
-    console.log(location)
-  }, [location])
+  const errorPosition = (error) => {
+    if (error) setErrorGeolocation(true)
+  }
 
   const transformDatas = (datas) => {    
     let allRestaurantTransform = []    
@@ -172,12 +187,19 @@ const App = () => {
             mapElement={<div style={{ height: "100%" }} />}
             handleMarkerClick={handleMarkerClick}
             location={location}
+            transformDatas={transformDatas}
+            fetchRestaurants={fetchRestaurants}
           />
         </div>
         <div style={{ width: '35vw', height: '100vh' }}>
-          <div className="general">
-            <PanelRight tmpRestaurants={restaurants}/>
-          </div>
+          {errorGeolocation ? 
+            <div>
+              <img src='/localisation.jpg' style={{height: '200px', marginTop: '70%', marginLeft: '20%', marginRight: '20%'}}></img>
+              <div style={{color: '#f5f8b3', textAlign: 'center', width: '265px', marginLeft: '14%', marginTop: '30px'}}>Veuillez activer la géolocalisation pour continuer d'utiliser l'application</div>
+            </div> 
+            : <div className="general">
+              <PanelRight tmpRestaurants={restaurants}/>
+            </div>}
         </div>
       </div>
     </RestaurantsContext.Provider>
