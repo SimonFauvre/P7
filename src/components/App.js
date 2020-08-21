@@ -156,10 +156,12 @@ const App = () => {
       if (data.photos) {
         if (data.photos.length > 0) {
           tmpRestaurant.img = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${data.photos[0].photo_reference}&key=AIzaSyA1j6BRMbbmh3M1qFh9jGzbFAa5NxGVbHI`
+        } else {
+          tmpRestaurant.img = '/logo_resto.png'
         }
       }
       else {
-        tmpRestaurant.img = ""
+        tmpRestaurant.img = '/logo_resto.png'
       }
       
       allRestaurantTransform.push(tmpRestaurant)
