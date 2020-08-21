@@ -155,15 +155,15 @@ const Map = props => {
         <div className='addResto'>
           <h3>Ajouter un restaurant</h3>
           <div className='inputNom'>
-            <div>Nom du restaurant</div>
+            <div style={{width: '221px', marginRight: '10px', marginTop: '16px', color: 'white'}}>Nom du restaurant</div>
             <input type="text" className="textNomRestaurant" name="Nom du restaurant" placeholder='Le Fourvière' value={nom} onChange={(e) => {setNom(e.target.value); e.target.style.color = "white"}}></input>
           </div>
-          <div lassName='inputAdresse'>
-            <div>Adresse</div>
+          <div className='inputAdresse'>
+            <div style={{marginRight: '10px', marginTop: '16px', color: 'white'}}>Adresse</div>
             <input type="text" className="textAdresse" name="Adresse" placeholder='8 place de Fourvière, Lyon' value={adresse} onChange={(e) => {setAdresse(e.target.value); e.target.style.color = "white"}}></input>
           </div>
           <div className="newComment">
-                <select className="selectNote" id="selectNote" value={note} onChange={e => setNote(parseInt(e.target.value))}>
+                <select className="selectNote" id="note" value={note} onChange={e => setNote(parseInt(e.target.value))}>
                     <option value={1}>1</option>
                     <option value={2}>2</option>
                     <option value={3}>3</option>

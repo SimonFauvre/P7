@@ -5,7 +5,7 @@
     position: absolute;
     z-index: 99;
     bottom: 250px;
-    left: 300px;
+    left: 250px;
 }
 
 h3{
@@ -15,7 +15,17 @@ h3{
     color: #f5f8b3;
 }
 
-.inputNom, .inputRestaurant{
+.inputNom, .inputAdresse, .inputRestaurant{
     display: flex;
     flex-direction: row;
+}
+
+#note{
+    margin-left: 0;
+}
+
+.btnAjoutRestaurant{
+    margin-right: 0!important;
+    margin-left: 323px!important;
+    width: auto!important;
 }
