@@ -195,8 +195,8 @@ const App = () => {
         <div style={{ width: '35vw', height: '100vh' }}>
           {errorGeolocation ? 
             <div>
-              <img src='/localisation.jpg' style={{height: '200px', marginTop: '70%', marginLeft: '20%', marginRight: '20%'}}></img>
-              <div style={{color: '#f5f8b3', textAlign: 'center', width: '265px', marginLeft: '14%', marginTop: '30px'}}>Veuillez activer la géolocalisation pour continuer d'utiliser l'application</div>
+              <img src='/localisation.jpg' style={{height: '200px', marginTop: '55%', marginLeft: '28%', marginRight: '20%'}}></img>
+              <div style={{color: '#f5f8b3', textAlign: 'center', width: '265px', marginLeft: '25%', marginTop: '30px'}}>Veuillez activer la géolocalisation pour continuer d'utiliser l'application</div>
             </div> 
             : <div className="general">
               <PanelRight tmpRestaurants={restaurants}/>
